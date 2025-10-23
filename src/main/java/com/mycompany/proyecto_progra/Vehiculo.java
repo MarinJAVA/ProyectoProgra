@@ -14,7 +14,7 @@ public class Vehiculo {//clase1
         this.tipoArea = tipoArea;
     }
     
-     /*GETTERS y SETTERS:
+    /*
        - GET = Me da el valor (leer).
        - SET = cambia el valor (escribir).
        Sirven para cuidar los datos (encapsulamiento).*/
@@ -45,7 +45,7 @@ public class Vehiculo {//clase1
 
     @Override
     public String toString() {
-        return "Vehiculo{" + "placa=" + placa + ", tipoVehiculo=" + tipoVehiculo + ", tipoArea=" + tipoArea + '}';//alt+insert
+        return "Vehiculo" + "placa=" + placa + ", tipo De Vehiculo=" + tipoVehiculo + ", tipo de Area=" + tipoArea + '}';//alt+insert
     }
     
     

@@ -20,8 +20,6 @@ public class parqueoUMG extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         panel1 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        lblImage = new javax.swing.JLabel();
-        lblLogoU = new javax.swing.JLabel();
         txt_placa = new javax.swing.JTextField();
         lbl_placa = new javax.swing.JLabel();
         cbTipoVehiculo = new javax.swing.JComboBox<>();
@@ -46,11 +44,6 @@ public class parqueoUMG extends javax.swing.JFrame {
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblTitulo.setText("Parqueo UMG");
-
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/parking.png"))); // NOI18N
-        lblImage.setText("\n");
-
-        lblLogoU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/0.png"))); // NOI18N
 
         txt_placa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,9 +84,7 @@ public class parqueoUMG extends javax.swing.JFrame {
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panel1Layout.createSequentialGroup()
-                            .addGap(17, 17, 17)
-                            .addComponent(lblImage)
-                            .addGap(18, 18, 18)
+                            .addGap(103, 103, 103)
                             .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel1Layout.createSequentialGroup()
                             .addGap(171, 171, 171)
@@ -104,23 +95,15 @@ public class parqueoUMG extends javax.swing.JFrame {
                         .addComponent(cbTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogoU)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(lblTitulo)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblLogoU, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addComponent(lblTitulo)
+                .addGap(53, 53, 53)
+                .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,7 +166,7 @@ public class parqueoUMG extends javax.swing.JFrame {
         String tipoVehiculo = (String) cbTipoVehiculo.getSelectedItem();
 
                    
-        Vehiculo v = new Vehiculo(placa, tipoVehiculo, "ESTUDIANTE");
+        Vehiculo v = new Vehiculo(placa, tipoVehiculo,"");
 
 // muestro confirmacion de usuario
         javax.swing.JOptionPane.showMessageDialog(this,
@@ -237,8 +220,6 @@ public class parqueoUMG extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipoVehiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblImage;
-    private javax.swing.JLabel lblLogoU;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lbl_placa;
     private javax.swing.JPanel panel1;
