@@ -7,18 +7,31 @@ public class Vehiculo {//clase1
     public String placa;
     public String tipoVehiculo;//Atributos
     public String tipoArea;
+    public String carne;
 
-    public Vehiculo(String placa, String tipoVehiculo, String tipoArea) {//Creo mi constructor con parametros, alt+insert
+    public Vehiculo(String placa,String carne, String tipoVehiculo, String tipoArea) {//Creo mi constructor con parametros, alt+insert
         this.placa = placa;
+        this.carne= carne;
         this.tipoVehiculo = tipoVehiculo;
         this.tipoArea = tipoArea;
+    
     }
+
     
     /*
        - GET = Me da el valor (leer).
        - SET = cambia el valor (escribir).
        Sirven para cuidar los datos (encapsulamiento).*/
 
+    public String getCarne() {
+        return carne;
+    }
+
+    public void setCarne(String carne) {
+        this.carne = carne;
+    }
+
+    
     public String getPlaca() {
         return placa;
     }
@@ -43,10 +56,12 @@ public class Vehiculo {//clase1
         this.tipoArea = tipoArea;
     }
 
+  
     @Override
-    public String toString() {
-        return "Vehiculo" + "placa=" + placa + ", tipo De Vehiculo=" + tipoVehiculo + ", tipo de Area=" + tipoArea + '}';//alt+insert
-    }
+public String toString() {
+    return "Placa: " + placa + "\nTipo: " + tipoVehiculo;
+}
+
     
     
 }
