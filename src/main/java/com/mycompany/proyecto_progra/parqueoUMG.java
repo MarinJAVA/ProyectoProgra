@@ -162,13 +162,12 @@ public class parqueoUMG extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
            // verifica que el campo no esté vacío
     String placa = txt_placa.getText().trim();
-   
     if (placa.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, escriba la placa del vehículo.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
+        
     }
 
-    String tipoVehiculo = (String) cbxTipoVehiculo.getSelectedItem();
 
     try {
         try ( // Se conecta a la base de datos por medio de la clase ConexionBD
@@ -185,7 +184,7 @@ public class parqueoUMG extends javax.swing.JFrame {
             
             if (rs.next()) {
                 JOptionPane.showMessageDialog(this,
-                        "La placa " + placa + " ya está registrada como " + rs.getString("tipo") + ".",
+                        "La placa " + placa + " ya está registrada como " + rs.getString("Tipo_vehiculo") + ".",
                         "Vehículo encontrado", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // pregunta si desea Registrar
@@ -216,7 +215,7 @@ public class parqueoUMG extends javax.swing.JFrame {
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Error al conectar o consultar la base de datos:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-       /////////////////////////////////////////////////////
+       ////////////////////////////////////////////////////////////////////////////////////////////////
         
         
 
@@ -234,16 +233,96 @@ public class parqueoUMG extends javax.swing.JFrame {
                     "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         } else {
             
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Vehículo con placa " + placa + " ha salido del parqueo.",
-                    "Salida registrada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
 
             // limpio campos
             txt_placa.setText("");
             cbxTipoVehiculo.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_btnSalirActionPerformed
+        try (Connection conn = ConexionBD.conectar()) {
+            if (conn == null) {
+                JOptionPane.showMessageDialog(this,
+                        "Error: no se pudo conectar a la base de datos.",
+                        "Error de conexión",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+// Verificar si la placa existe en la base de datos
+         String sql = "SELECT * FROM vehiculo WHERE placa = ?";
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ps.setString(1, placa);
+         ResultSet rs = ps.executeQuery();
+        
+         if (!rs.next()) {
+             JOptionPane.showMessageDialog(this,
+                     "❌ La placa " + placa + " no existe en la base de datos.\nPlaca incorrecta.",
+                     "Placa no encontrada",
+                     JOptionPane.ERROR_MESSAGE);
+             return; // Detiene el proceso si la placa no existe
+         }
+            
+            
+            
+            
+            
+           
+            
+            
+         ///
+            
+            int opcion = JOptionPane.showConfirmDialog(this,
+        "¿Desea registrar la salida del vehículo con placa " + placa + "?",
+        "Salida de parqueo", JOptionPane.YES_NO_OPTION);
 
+if (opcion == JOptionPane.YES_OPTION) {
+    JOptionPane.showMessageDialog(this,
+            "🚗 Vehículo con placa " + placa + " ha salido del parqueo con éxito.",
+            "Salida registrada", JOptionPane.INFORMATION_MESSAGE);
+            
+    // texto del ticket
+String ticket = "------ PARQUEO UMG ------\n"
+        + "Placa: " + placa + "\n"
+        + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+        + "Hora de salida: " + java.time.LocalDateTime.now() + "\n"
+        + "--------------------------\n"
+        + "Gracias por su visita!\n";
+
+// Mostrar el ticket en pantalla
+JOptionPane.showMessageDialog(this, ticket, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+
+    
+    // Limpia los campos
+    txt_placa.setText("");
+    cbxTipoVehiculo.setSelectedIndex(0);
+} else {
+    JOptionPane.showMessageDialog(this,
+            "Operación cancelada.",
+            "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+}
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            JOptionPane.showMessageDialog(this,
+                    "Operación realizada correctamente.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al ejecutar la operación:\n" + e.getMessage(),
+                    "Error SQL",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+       
+        
+    }//GEN-LAST:event_btnSalirActionPerformed
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void txt_placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_placaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_placaActionPerformed

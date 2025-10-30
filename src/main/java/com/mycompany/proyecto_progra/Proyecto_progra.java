@@ -10,7 +10,7 @@ public class Proyecto_progra {
         parqueoUMG ver = new parqueoUMG ();
         ver.setVisible(true);
         
-      
+
         }
     }
 

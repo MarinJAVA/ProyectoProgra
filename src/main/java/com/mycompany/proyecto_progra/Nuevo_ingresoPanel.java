@@ -3,9 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.proyecto_progra;
-
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
+
+
 
 /**
  *
@@ -128,8 +132,44 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_carneActionPerformed
 
     private void btnGusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGusuarioActionPerformed
-     
+//extraigo valores de txfield
+String carne = txt_carne.getText().trim();
+    String placa = txt_numPlaca.getText().trim();
+    String tipoVehiculo = (String) cbxTipodeVehiculo.getSelectedItem();
+    
+    //verifico si el campo no está vacío 
+ if (carne.isEmpty() || placa.isEmpty() || tipoVehiculo.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+            "Por favor, complete todos los campos antes de guardar.",
+            "Campos vacíos",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+try (Connection conn = ConexionBD.conectar()) {
+    if (conn == null) {
+        JOptionPane.showMessageDialog(this, "Error: no se pudo conectar a la base de datos.");
+        return;
+    }
 
+    String sql = "INSERT INTO vehiculo (carne, placa, Tipo_vehiculo) VALUES (?, ?, ?)";
+    PreparedStatement ps = conn.prepareStatement(sql);
+    ps.setString(1, carne);
+    ps.setString(2, placa);
+    ps.setString(3, tipoVehiculo);
+
+    int filas = ps.executeUpdate();
+
+    if (filas > 0) {
+        JOptionPane.showMessageDialog(this, "Vehículo ingresado correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(this, "No se pudo guardar el vehículo.");
+    }
+
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this, "Error SQL: " + e.getMessage());
+}
+
+ 
     }//GEN-LAST:event_btnGusuarioActionPerformed
 
 
