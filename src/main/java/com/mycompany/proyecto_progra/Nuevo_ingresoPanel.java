@@ -161,10 +161,29 @@ try (Connection conn = ConexionBD.conectar()) {
 
     if (filas > 0) {
         JOptionPane.showMessageDialog(this, "Vehículo ingresado correctamente.");
+        
+       
+        
+        
     } else {
         JOptionPane.showMessageDialog(this, "No se pudo guardar el vehículo.");
     }
+    String horaEntrada = java.time.LocalDateTime.now()
+        .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 
+
+String ticket = "------ PARQUEO UMG ------\n"
+        + "Placa: " + placa + "\n"
+        + "Tipo de vehículo: " + cbxTipodeVehiculo.getSelectedItem() + "\n"
+        + "Hora de Entrada: " + horaEntrada + "\n"
+        + "--------------------------\n"
+        + "BIENVENIDO!\n";
+
+// ticket en ventana
+JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
+// limpio
+            txt_carne.setText("");
+            txt_numPlaca.setText("");
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(this, "Error SQL: " + e.getMessage());
 }

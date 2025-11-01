@@ -178,7 +178,7 @@ public class parqueoUMG extends javax.swing.JFrame {
             }
             
             // verifica que esxista la placa
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM vehiculo WHERE placa = ?");//que placa voy a selecionar?
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM vehiculo WHERE placa = ?");
             ps.setString(1, placa);
             ResultSet rs = ps.executeQuery();
             
@@ -186,20 +186,41 @@ public class parqueoUMG extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,
                         "La placa " + placa + " ya está registrada como " + rs.getString("Tipo_vehiculo") + ".",
                         "Vehículo encontrado", JOptionPane.INFORMATION_MESSAGE);
+                
+                String horaEntrada = java.time.LocalDateTime.now()
+                        .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                
+                String ticket = "------ PARQUEO UMG ------\n"
+                        + "Placa: " + placa + "\n"
+                        + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+                        + "Hora de Entrada: " + horaEntrada + "\n"
+                        + "--------------------------\n"
+                        + "BIENVENIDO!\n";
+
+// ticket en ventana
+                JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
+                
+                
+                
+                
             } else {
                 // pregunta si desea Registrar
                 int opcion = JOptionPane.showConfirmDialog(this,
                         "La placa " + placa + " no está registrada.\n¿Desea registrarla?",
                         "Registrar vehículo", JOptionPane.YES_NO_OPTION);
              
+                
                 if (opcion == JOptionPane.YES_OPTION) {
-                    // registra vehiculo
+               
                    
                     Nuevo_ingresoPanel panelNuevo = new Nuevo_ingresoPanel();
                     this.setContentPane(panelNuevo);//me envía de mi Frame a mi Jpanel
                     this.revalidate();
                     this.repaint();
-
+// limpio
+            txt_placa.setText("");
+            cbxTipoVehiculo.setSelectedIndex(0);
+                    
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 } else {
 
@@ -207,9 +228,10 @@ public class parqueoUMG extends javax.swing.JFrame {
                 }
             }
             
-            // limpia
-            txt_placa.setText("");
-            cbxTipoVehiculo.setSelectedIndex(0);//reinicio cbx
+                      
+
+            
+            
         }
 
     } catch (SQLException e) {
@@ -264,10 +286,7 @@ public class parqueoUMG extends javax.swing.JFrame {
             
          
          
-            
-            
-            
-           
+          
             
             
          ///
@@ -281,7 +300,7 @@ if (opcion == JOptionPane.YES_OPTION) {
             "🚗 Vehículo con placa " + placa + " ha salido del parqueo con éxito.",
             "Salida registrada", JOptionPane.INFORMATION_MESSAGE);
             
-    // texto del ticket
+   
 String ticket = "------ PARQUEO UMG ------\n"
         + "Placa: " + placa + "\n"
         + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
@@ -289,7 +308,7 @@ String ticket = "------ PARQUEO UMG ------\n"
         + "--------------------------\n"
         + "Gracias por su visita!\n";
 
-// Mostrar el ticket en pantalla
+
 JOptionPane.showMessageDialog(this, ticket, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
 
     
