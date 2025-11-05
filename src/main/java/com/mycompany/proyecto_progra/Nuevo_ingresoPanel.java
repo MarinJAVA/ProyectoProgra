@@ -5,6 +5,7 @@
 package com.mycompany.proyecto_progra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -42,6 +43,8 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
         lblArea = new javax.swing.JLabel();
         cbxArea = new javax.swing.JComboBox<>();
         btnGusuario = new javax.swing.JButton();
+        lblTipodeTarifa = new javax.swing.JLabel();
+        cbxTarifa = new javax.swing.JComboBox<>();
 
         lbl_carne.setText("Ingresa tu numero de Carné");
 
@@ -55,7 +58,7 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
 
         cbxTipodeVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carro", "Moto" }));
 
-        lblTipodeVehiculo.setText("Selecciona tu Tipo de Vehiculo");
+        lblTipodeVehiculo.setText("Selecciona tu Tipo de Vehiculo:");
 
         lblArea.setText("Selecciona tu Área:");
 
@@ -67,6 +70,10 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
                 btnGusuarioActionPerformed(evt);
             }
         });
+
+        lblTipodeTarifa.setText("Ingrese Tipo de Tarifa:");
+
+        cbxTarifa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarifa Plana (Q10 todo el día)", "Tarifa Variable (por hora)" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -84,23 +91,21 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
                                 .addComponent(txt_carne, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(116, 116, 116)
-                        .addComponent(lblTipodeVehiculo)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbxTipodeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblTipodeVehiculo)
+                                .addComponent(lblArea)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(cbxTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblTipodeTarifa))
+                            .addComponent(cbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cbxTipodeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(106, 106, 106))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblArea)
-                            .addComponent(cbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(92, 92, 92))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(btnGusuario)
-                        .addContainerGap())))
+                .addComponent(btnGusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,9 +126,13 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
                 .addComponent(lblArea)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGusuario)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTipodeTarifa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnGusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,55 +141,120 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_carneActionPerformed
 
     private void btnGusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGusuarioActionPerformed
-//extraigo valores de txfield
-String carne = txt_carne.getText().trim();
+// Extraigo valores de los TextField
+    String carne = txt_carne.getText().trim();
     String placa = txt_numPlaca.getText().trim();
     String tipoVehiculo = (String) cbxTipodeVehiculo.getSelectedItem();
-    
-    //verifico si el campo no está vacío 
- if (carne.isEmpty() || placa.isEmpty() || tipoVehiculo.isEmpty()) {
+
+    // Verifico si los campos no están vacíos
+    if (carne.isEmpty() || placa.isEmpty() || tipoVehiculo.isEmpty()) {
         JOptionPane.showMessageDialog(this,
             "Por favor, complete todos los campos antes de guardar.",
             "Campos vacíos",
             JOptionPane.WARNING_MESSAGE);
         return;
     }
-try (Connection conn = ConexionBD.conectar()) {
-    if (conn == null) {
-        JOptionPane.showMessageDialog(this, "Error: no se pudo conectar a la base de datos.");
-        return;
-    }
 
-    String sql = "INSERT INTO vehiculo (carne, placa, Tipo_vehiculo) VALUES (?, ?, ?)";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, carne);
-    ps.setString(2, placa);
-    ps.setString(3, tipoVehiculo);
+    try (Connection conn = ConexionBD.conectar()) {
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Error: no se pudo conectar a la base de datos.");
+            return;
+        }
 
-    int filas = ps.executeUpdate();
+        // Inserto el vehículo (solo si no existe)
+        String sql = "INSERT INTO vehiculo (carne, placa, Tipo_vehiculo) VALUES (?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, carne);
+        ps.setString(2, placa);
+        ps.setString(3, tipoVehiculo);
 
-    if (filas > 0) {
-        JOptionPane.showMessageDialog(this, "Vehículo ingresado correctamente.");
-        
-       
-        
-        
-    } else {
-        JOptionPane.showMessageDialog(this, "No se pudo guardar el vehículo.");
-    }
-    String horaEntrada = java.time.LocalDateTime.now()
-        .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+        int filas = ps.executeUpdate();
 
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(this, "Vehículo ingresado correctamente.");
 
-String ticket = "------ PARQUEO UMG ------\n"
-        + "Placa: " + placa + "\n"
-        + "Tipo de vehículo: " + cbxTipodeVehiculo.getSelectedItem() + "\n"
-        + "Hora de Entrada: " + horaEntrada + "\n"
-        + "--------------------------\n"
-        + "BIENVENIDO!\n";
+            
 
-// ticket en ventana
-JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
+            // Obtengo la tarifa seleccionada del ComboBox
+            String tarifaSeleccionada = cbxTarifa.getSelectedItem().toString();
+           
+            
+            
+            
+
+            // Defino variables base para el ticket
+            String modoPago;
+            double monto;
+            String estado;
+
+            // detecto tarifa plana
+            if (tarifaSeleccionada.startsWith("Tarifa Plana")) {
+
+                
+                modoPago = "FLAT";
+                monto = 10.00;
+                estado = "PAGADO";
+            } else {
+                // Si eligió tarifa variable, se paga al salir
+                modoPago = "VARIABLE";
+                monto = 0.00;
+                estado = "ACTIVO";
+            }
+            
+            
+            
+            
+
+            // Inserto el nuevo ticket en la base de datos
+            String sqlTicket = "INSERT INTO ticket (placa, fecha_ingreso, modo_pago, monto, estado) VALUES (?, NOW(), ?, ?, ?)";
+            PreparedStatement psTicket = conn.prepareStatement(sqlTicket);
+            psTicket.setString(1, placa);
+            psTicket.setString(2, modoPago);
+            psTicket.setDouble(3, monto);
+            psTicket.setString(4, estado);
+
+            int filasTicket = psTicket.executeUpdate();
+
+            // Si se insertó el ticket correctamente
+            if (filasTicket > 0) {
+                // Hora actual formateada
+                String horaEntrada = java.time.LocalDateTime.now()
+                    .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+
+                // Creo el texto del ticket
+                String ticket = "------ PARQUEO UMG ------\n"
+                        + "Placa: " + placa + "\n"
+                        + "Tipo de vehículo: " + cbxTipodeVehiculo.getSelectedItem() + "\n"
+                        + "Tipo de Tarifa: " + tarifaSeleccionada + "\n"
+                        + "Hora de Entrada: " + horaEntrada + "\n"
+                        + "--------------------------\n"
+                        + "BIENVENIDO!\n";
+
+                // Muestro el ticket en una ventana
+                JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo generar el ticket.");
+            }
+
+            // 🔼 🔼 🔼 FIN DEL BLOQUE PARA CREAR EL TICKET 🔼 🔼 🔼
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el vehículo.");
+        }
 // limpio
             txt_carne.setText("");
             txt_numPlaca.setText("");
@@ -195,8 +269,10 @@ JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGusuario;
     private javax.swing.JComboBox<String> cbxArea;
+    private javax.swing.JComboBox<String> cbxTarifa;
     private javax.swing.JComboBox<String> cbxTipodeVehiculo;
     private javax.swing.JLabel lblArea;
+    private javax.swing.JLabel lblTipodeTarifa;
     private javax.swing.JLabel lblTipodeVehiculo;
     private javax.swing.JLabel lbl_carne;
     private javax.swing.JLabel lbl_numPlaca;

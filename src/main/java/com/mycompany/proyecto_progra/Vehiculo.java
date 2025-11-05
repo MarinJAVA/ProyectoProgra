@@ -21,7 +21,7 @@ public class Vehiculo {//clase1
     /*
        - GET = Me da el valor (leer).
        - SET = cambia el valor (escribir).
-       Sirven para cuidar los datos (encapsulamiento).*/
+      */
 
     public String getCarne() {
         return carne;
