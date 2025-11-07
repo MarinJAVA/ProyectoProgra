@@ -57,7 +57,7 @@ public class Vehiculo {//clase1
     }
 
   
-    @Override
+    @Override //Esto sirve para que cuando imprima el objeto, me muestre sus datos bonitos y no el código raro
 public String toString() {
     return "Placa: " + placa + "\nTipo: " + tipoVehiculo;
 }

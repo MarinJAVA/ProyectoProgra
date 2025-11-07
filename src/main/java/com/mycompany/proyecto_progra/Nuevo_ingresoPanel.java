@@ -3,11 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.proyecto_progra;
+
+import com.mycompany.proyecto_progra.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import com.mycompany.proyecto_progra.Ticket;
+import com.mycompany.proyecto_progra.TicketDAO;
+
 
 
 
@@ -141,7 +146,9 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_carneActionPerformed
 
     private void btnGusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGusuarioActionPerformed
-// Extraigo valores de los TextField
+
+                                               
+    // Extraigo valores de los TextField
     String carne = txt_carne.getText().trim();
     String placa = txt_numPlaca.getText().trim();
     String tipoVehiculo = (String) cbxTipodeVehiculo.getSelectedItem();
@@ -173,94 +180,64 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
         if (filas > 0) {
             JOptionPane.showMessageDialog(this, "Vehículo ingresado correctamente.");
 
-            
+            // CLASE DAO 
 
-            // Obtengo la tarifa seleccionada del ComboBox
+            // Obtengo la tarifa seleccionada del Cbx
             String tarifaSeleccionada = cbxTarifa.getSelectedItem().toString();
-           
-            
-            
-            
 
-            // Defino variables base para el ticket
-            String modoPago;
-            double monto;
-            String estado;
+            // Creo el objeto Ticket con sus valores
+            Ticket nuevoTicket = new Ticket();
+            nuevoTicket.setPlaca(placa);
+            nuevoTicket.setArea_id(null); // aún no manejas área
+            nuevoTicket.setFecha_ingreso(new java.sql.Timestamp(System.currentTimeMillis()));
 
-            // detecto tarifa plana
+            // Detecto tipo de tarifa
             if (tarifaSeleccionada.startsWith("Tarifa Plana")) {
-
-                
-                modoPago = "FLAT";
-                monto = 10.00;
-                estado = "PAGADO";
+                nuevoTicket.setModo_pago("FLAT");
+                nuevoTicket.setMonto(10.00);
+                nuevoTicket.setEstado("PAGADO");
             } else {
-                // Si eligió tarifa variable, se paga al salir
-                modoPago = "VARIABLE";
-                monto = 0.00;
-                estado = "ACTIVO";
-            }
-            
-            
-            
-            
-
-            // Inserto el nuevo ticket en la base de datos
-            String sqlTicket = "INSERT INTO ticket (placa, fecha_ingreso, modo_pago, monto, estado) VALUES (?, NOW(), ?, ?, ?)";
-            PreparedStatement psTicket = conn.prepareStatement(sqlTicket);
-            psTicket.setString(1, placa);
-            psTicket.setString(2, modoPago);
-            psTicket.setDouble(3, monto);
-            psTicket.setString(4, estado);
-
-            int filasTicket = psTicket.executeUpdate();
-
-            // Si se insertó el ticket correctamente
-            if (filasTicket > 0) {
-                // Hora actual formateada
-                String horaEntrada = java.time.LocalDateTime.now()
-                    .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
-                
-                
-                
-
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-
-                // Creo el texto del ticket
-                String ticket = "------ PARQUEO UMG ------\n"
-                        + "Placa: " + placa + "\n"
-                        + "Tipo de vehículo: " + cbxTipodeVehiculo.getSelectedItem() + "\n"
-                        + "Tipo de Tarifa: " + tarifaSeleccionada + "\n"
-                        + "Hora de Entrada: " + horaEntrada + "\n"
-                        + "--------------------------\n"
-                        + "BIENVENIDO!\n";
-
-                // Muestro el ticket en una ventana
-                JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudo generar el ticket.");
+                nuevoTicket.setModo_pago("VARIABLE");
+                nuevoTicket.setMonto(0.00);
+                nuevoTicket.setEstado("ACTIVO");
             }
 
-            // 🔼 🔼 🔼 FIN DEL BLOQUE PARA CREAR EL TICKET 🔼 🔼 🔼
+
+            // Llamo al DAO para guardar el ticket
+            TicketDAO.insertarTicket(nuevoTicket);
+
+            // FIN  DAO 
+
+
+            // Genero el ticket visual
+            String horaEntrada = java.time.LocalDateTime.now()
+                .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+            String ticketTexto = "------ PARQUEO UMG ------\n"
+                    + "Placa: " + placa + "\n"
+                    + "Tipo de vehículo: " + tipoVehiculo + "\n"
+                    + "Tipo de Tarifa: " + tarifaSeleccionada + "\n"
+                    + "Hora de Entrada: " + horaEntrada + "\n"
+                    + "--------------------------\n"
+                    + "BIENVENIDO!\n";
+
+            JOptionPane.showMessageDialog(this, ticketTexto, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el vehículo.");
         }
-// limpio
-            txt_carne.setText("");
-            txt_numPlaca.setText("");
-} catch (SQLException e) {
-    JOptionPane.showMessageDialog(this, "Error SQL: " + e.getMessage());
-}
+
+        // Limpio campos
+        txt_carne.setText("");
+        txt_numPlaca.setText("");
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error SQL: " + e.getMessage());
+    }
+
+        
+            
+             
 
  
     }//GEN-LAST:event_btnGusuarioActionPerformed

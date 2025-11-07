@@ -255,7 +255,6 @@ public class parqueoUMG extends javax.swing.JFrame {
                     "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         } else {
             
-            
 
             // limpio campos
             txt_placa.setText("");
@@ -269,7 +268,11 @@ public class parqueoUMG extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-// Verificar si la placa existe en la base de datos
+            
+          
+            
+            
+// Valido si la placa existe en la base de datos
          String sql = "SELECT * FROM vehiculo WHERE placa = ?";
          PreparedStatement ps = conn.prepareStatement(sql);
          ps.setString(1, placa);
@@ -282,50 +285,98 @@ public class parqueoUMG extends javax.swing.JFrame {
                      JOptionPane.ERROR_MESSAGE);
              return; // Detiene el proceso si la placa no existe
          }
-            
-            
          
+            
+            
+         //Aquí debería ir el codigo de validación de tarifa variable 
+
          
           
-            
-            
-         ///
-            
-            int opcion = JOptionPane.showConfirmDialog(this,
-        "¿Desea registrar la salida del vehículo con placa " + placa + "?",
-        "Salida de parqueo", JOptionPane.YES_NO_OPTION);
+         
+         //  INICIO DE CÁLCULO DE TARIFA SEGÚN EL TIPO 
 
-if (opcion == JOptionPane.YES_OPTION) {
-    JOptionPane.showMessageDialog(this,
-            "🚗 Vehículo con placa " + placa + " ha salido del parqueo con éxito.",
-            "Salida registrada", JOptionPane.INFORMATION_MESSAGE);
-            
-   
-String ticket = "------ PARQUEO UMG ------\n"
-        + "Placa: " + placa + "\n"
-        + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
-        + "Hora de salida: " + java.time.LocalDateTime.now() + "\n"
-        + "--------------------------\n"
-        + "Gracias por su visita!\n";
+// Buscamos si la placa tiene un ticket activo (puede ser FLAT o VARIABLE)
+String sqlTicket = "SELECT * FROM ticket WHERE placa = ? AND estado = 'ACTIVO' ORDER BY ticket_id DESC LIMIT 1";
+PreparedStatement psTicket = conn.prepareStatement(sqlTicket);
+psTicket.setString(1, placa);
+ResultSet rsTicket = psTicket.executeQuery();
 
+if (rsTicket.next()) {
+    String modoPago = rsTicket.getString("modo_pago");
+    java.sql.Timestamp fechaIngreso = rsTicket.getTimestamp("fecha_ingreso");
+    java.sql.Timestamp fechaSalida = new java.sql.Timestamp(System.currentTimeMillis());
 
-JOptionPane.showMessageDialog(this, ticket, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+    // Si el modo de pago es VARIABLE, calculamos cobro por hora
+    if (modoPago.equals("VARIABLE")) {
 
+        long minutos = java.time.Duration.between(fechaIngreso.toLocalDateTime(), fechaSalida.toLocalDateTime()).toMinutes();
+        double horas = Math.ceil(minutos / 60.0); // redondea hacia arriba
+        double tarifaHora = 5.0; // Q5 por hora (puedes ajustar)
+        double monto = horas * tarifaHora;
+
+        // Actualizamos el ticket en la BD
+        String sqlUpdate = "UPDATE ticket SET fecha_salida = ?, monto = ?, estado = 'PAGADO' WHERE placa = ? AND estado = 'ACTIVO'";
+        PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
+        psUpdate.setTimestamp(1, fechaSalida);
+        psUpdate.setDouble(2, monto);
+        psUpdate.setString(3, placa);
+        psUpdate.executeUpdate();
+
+        // Mostramos el ticket de salida con monto a pagar
+        String ticketSalida = "------ PARQUEO UMG ------\n"
+                + "Placa: " + placa + "\n"
+                + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+                + "Hora de Salida: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + "\n"
+                + "Tiempo total: " + horas + " hora(s)\n"
+                + "Monto a pagar: Q" + monto + "\n"
+                + "--------------------------\n"
+                + "Gracias por su visita!\n";
+
+        JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+
+    } 
     
-    // Limpia los campos
-    txt_placa.setText("");
-    cbxTipoVehiculo.setSelectedIndex(0);
+    // Si el modo de pago es FLAT, solo mostramos mensaje simple (ya está pagado)
+    else if (modoPago.equals("FLAT")) {
+        String ticketSalida = "------ PARQUEO UMG ------\n"
+                + "Placa: " + placa + "\n"
+                + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+                + "Hora de Salida: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + "\n"
+                + "--------------------------\n"
+                + "TARIFA PLANA (Q10) - Ya pagada\n"
+                + "Gracias por su visita!\n";
+
+        // Actualizamos la salida y marcamos como pagado también
+        String sqlUpdateFlat = "UPDATE ticket SET fecha_salida = ?, estado = 'PAGADO' WHERE placa = ? AND estado = 'ACTIVO'";
+        PreparedStatement psFlat = conn.prepareStatement(sqlUpdateFlat);
+        psFlat.setTimestamp(1, fechaSalida);
+        psFlat.setString(2, placa);
+        psFlat.executeUpdate();
+
+        JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+    }
 } else {
-    JOptionPane.showMessageDialog(this,
-            "Operación cancelada.",
-            "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(this, 
+        "No se encontró un ticket activo para esta placa.", 
+        "Sin ticket", 
+        JOptionPane.WARNING_MESSAGE);
 }
+
+//  FIN DE CÁLCULO DE TARIFA SEGÚN EL TIPO 
+
+       
             
+///
             
-            
-            
-            
-            
+       
+
+
+
+
+/////////////////////
+
+
+
             
             
             
