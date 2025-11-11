@@ -30,6 +30,10 @@ public class parqueoUMG extends javax.swing.JFrame {
         lblTipodeVehiculo = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnCargarArchivo = new javax.swing.JButton();
+        txtCargarArchivo = new javax.swing.JTextField();
+        lbl_ingresarArchivo = new javax.swing.JLabel();
+        btnLimpiarBase = new javax.swing.JButton();
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -80,22 +84,55 @@ public class parqueoUMG extends javax.swing.JFrame {
             }
         });
 
+        btnCargarArchivo.setText("Cargar Archivo");
+        btnCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarArchivoActionPerformed(evt);
+            }
+        });
+
+        txtCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCargarArchivoActionPerformed(evt);
+            }
+        });
+
+        lbl_ingresarArchivo.setText("ingresa la dirección de tu archivo Csv:");
+
+        btnLimpiarBase.setText("Eliminar todos los Registros");
+        btnLimpiarBase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarBaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
+                .addGap(37, 37, 37)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_ingresarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(109, Short.MAX_VALUE))
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(btnCargarArchivo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTipodeVehiculo)
                             .addComponent(cbxTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panel1Layout.createSequentialGroup()
@@ -103,13 +140,17 @@ public class parqueoUMG extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpiarBase)
+                .addGap(16, 16, 16))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(31, 31, 31)
                 .addComponent(lblTitulo)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,7 +162,15 @@ public class parqueoUMG extends javax.swing.JFrame {
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addGap(64, 64, 64)
+                .addComponent(lbl_ingresarArchivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(btnCargarArchivo)
+                .addGap(56, 56, 56)
+                .addComponent(btnLimpiarBase)
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -149,7 +198,7 @@ public class parqueoUMG extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -399,6 +448,55 @@ if (rsTicket.next()) {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_placaActionPerformed
 
+    private void btnCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarArchivoActionPerformed
+ String ruta = txtCargarArchivo.getText().trim();
+
+    if (ruta.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingresa la ruta del archivo CSV.");
+        return;
+    }
+
+    try {
+        // Archivo separado por '|', 
+        importarArchivo.importarCSV(ruta, '|');
+        javax.swing.JOptionPane.showMessageDialog(this, "Archivo importado correctamente a la base de datos.");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al importar: " + ex.getMessage(),
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }                                                      
+    
+//////////////////////////////////////////
+    }//GEN-LAST:event_btnCargarArchivoActionPerformed
+
+    private void txtCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargarArchivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCargarArchivoActionPerformed
+
+    private void btnLimpiarBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarBaseActionPerformed
+int confirm = JOptionPane.showConfirmDialog(this,
+        "¿Seguro que deseas eliminar TODOS los registros de la tabla vehiculo?",
+        "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+    if (confirm != JOptionPane.YES_OPTION) return;
+
+    try (Connection conn = ConexionBD.conectar()) {
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "No se pudo conectar a la base de datos.");
+            return;
+        }
+
+        String sql = "DELETE FROM vehiculo";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            int filas = ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Se eliminaron " + filas + " registros correctamente.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al limpiar la base: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnLimpiarBaseActionPerformed
+/////////////////////////////////////////////////////////////////////////////////
  
     public static void main(String args[]) {
    
@@ -406,15 +504,19 @@ if (rsTicket.next()) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargarArchivo;
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnLimpiarBase;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxTipoVehiculo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblTipodeVehiculo;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lbl_ingresarArchivo;
     private javax.swing.JLabel lbl_placa;
     private javax.swing.JPanel panel1;
     private java.awt.Panel panel2;
+    private javax.swing.JTextField txtCargarArchivo;
     private javax.swing.JTextField txt_placa;
     // End of variables declaration//GEN-END:variables
 
