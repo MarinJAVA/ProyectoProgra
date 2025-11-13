@@ -40,30 +40,55 @@ public class TicketDAO {
         }
     }
 
-    // 🔹 Actualiza el ticket al salir (variable)
+    //  Actualiza el ticket al salir (variable o FLAT)
     public static void actualizarSalida(String placa, double monto) {
-        String sql = "UPDATE ticket SET fecha_salida = NOW(), monto = ?, estado = 'PAGADO' WHERE placa = ? AND estado = 'ACTIVO'";
+       // Buscamos si el vehículo ya tiene fecha_salida
+    String verificarSql = "SELECT fecha_salida FROM ticket WHERE placa = ? ORDER BY fecha_ingreso DESC LIMIT 1";
+    String actualizarSql = "UPDATE ticket SET fecha_salida = NOW(), monto = ?, estado = 'CERRADO' WHERE placa = ? AND (fecha_salida IS NULL OR fecha_salida = '')";
 
-        try (Connection conn = ConexionBD.conectar();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = ConexionBD.conectar()) {
 
-            ps.setDouble(1, monto);
-            ps.setString(2, placa);
+        // 1️⃣ Verificar si ya tiene salida
+     try (PreparedStatement psVerificar = conn.prepareStatement(verificarSql)) {
+          psVerificar.setString(1, placa);
+            ResultSet rs = psVerificar.executeQuery();
 
-            int filas = ps.executeUpdate();
+      if (rs.next()) {
+                java.sql.Timestamp salida = rs.getTimestamp("fecha_salida");
+       if (salida != null) {
+       // Ya tiene hora de salida no permitimos doble salida
+              JOptionPane.showMessageDialog(null, 
+           "🚗 Este vehículo ya ha salido del parqueo.\nHora de salida: " + salida.toString(),
+           "Aviso", JOptionPane.WARNING_MESSAGE);
+                    return;
+          }
+        }
+        }
+
+        // Sino tiene salida se actualiza a la actual
+        try (PreparedStatement psActualizar = conn.prepareStatement(actualizarSql)) {
+            psActualizar.setDouble(1, monto);
+            psActualizar.setString(2, placa);
+
+            int filas = psActualizar.executeUpdate();
 
             if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "💰 Ticket actualizado y pagado.");
+                JOptionPane.showMessageDialog(null, "💰 Ticket actualizado: salida registrada correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "⚠️ No se encontró ningún registro pendiente de salida para esta placa.");
             }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar ticket: " + e.getMessage());
         }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar ticket: " + e.getMessage());
+    }
     }
 
-    // ? Busca ticket activo (para tarifa VARIABLE)
+    // Busca ticket activo o FLAT pendiente de salida
     public static Ticket buscarTicketActivo(String placa) {
-        String sql = "SELECT * FROM ticket WHERE placa = ? AND modo_pago = 'VARIABLE' AND estado = 'ACTIVO'";
+       String sql = "SELECT * FROM ticket WHERE placa = ? "
+                   + "AND ((modo_pago = 'VARIABLE' AND estado = 'ACTIVO') "
+                   + "OR (modo_pago = 'FLAT' AND estado = 'PAGADO' AND fecha_salida IS NULL))";
 
         try (Connection conn = ConexionBD.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {

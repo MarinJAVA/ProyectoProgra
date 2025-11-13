@@ -50,8 +50,9 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
         btnGusuario = new javax.swing.JButton();
         lblTipodeTarifa = new javax.swing.JLabel();
         cbxTarifa = new javax.swing.JComboBox<>();
+        btnBack = new javax.swing.JButton();
 
-        lbl_carne.setText("Ingresa tu numero de Carné");
+        lbl_carne.setText("Ingresa tu numero de Carné:");
 
         txt_carne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +60,7 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
             }
         });
 
-        lbl_numPlaca.setText("ingresa Tu numero de Placa");
+        lbl_numPlaca.setText("ingresa Tu numero de Placa:");
 
         cbxTipodeVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carro", "Moto" }));
 
@@ -69,6 +70,7 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
 
         cbxArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Catedrático", "Visita" }));
 
+        btnGusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar-datos.png"))); // NOI18N
         btnGusuario.setText("Guardar Usuario");
         btnGusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,51 +81,69 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
         lblTipodeTarifa.setText("Ingrese Tipo de Tarifa:");
 
         cbxTarifa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarifa Plana (Q10 todo el día)", "Tarifa Variable (por hora)" }));
+        cbxTarifa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTarifaActionPerformed(evt);
+            }
+        });
+
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salida-de-incendios.png"))); // NOI18N
+        btnBack.setText("Atrás");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txt_numPlaca, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lbl_numPlaca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addComponent(txt_carne, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(lbl_carne, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbxTipodeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblTipodeVehiculo)
-                                .addComponent(lblArea)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(cbxTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lblTipodeTarifa))
-                            .addComponent(cbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(btnGusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cbxTipodeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTipodeVehiculo)
+                            .addComponent(lblArea)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(cbxTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTipodeTarifa))
+                        .addComponent(cbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lbl_numPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_numPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_carne, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_carne, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(116, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lbl_carne, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(lbl_carne, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_carne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_numPlaca)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_numPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(lblTipodeVehiculo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxTipodeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,9 +155,9 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
                 .addComponent(lblTipodeTarifa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(btnGusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -188,7 +208,7 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
             // Creo el objeto Ticket con sus valores
             Ticket nuevoTicket = new Ticket();
             nuevoTicket.setPlaca(placa);
-            nuevoTicket.setArea_id(null); // aún no manejas área
+            nuevoTicket.setArea_id(null); 
             nuevoTicket.setFecha_ingreso(new java.sql.Timestamp(System.currentTimeMillis()));
 
             // Detecto tipo de tarifa
@@ -242,8 +262,29 @@ public class Nuevo_ingresoPanel extends javax.swing.JPanel {
  
     }//GEN-LAST:event_btnGusuarioActionPerformed
 
+    private void cbxTarifaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTarifaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxTarifaActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Obtener la ventana principal JFrame
+        java.awt.Window ventana = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+        if (ventana instanceof javax.swing.JFrame frame) {
+            //Crear una nueva instancia del panel principal
+            parqueoUMG panelPrincipal = new parqueoUMG();
+
+            //Reemplazo el contenido del frame actual por el panel principal
+            frame.setContentPane(panelPrincipal.getContentPane());
+            frame.revalidate();
+            frame.repaint();
+        }
+
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnGusuario;
     private javax.swing.JComboBox<String> cbxArea;
     private javax.swing.JComboBox<String> cbxTarifa;

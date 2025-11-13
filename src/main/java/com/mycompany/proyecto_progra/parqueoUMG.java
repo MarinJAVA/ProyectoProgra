@@ -34,6 +34,11 @@ public class parqueoUMG extends javax.swing.JFrame {
         txtCargarArchivo = new javax.swing.JTextField();
         lbl_ingresarArchivo = new javax.swing.JLabel();
         btnLimpiarBase = new javax.swing.JButton();
+        btnAdmin = new javax.swing.JButton();
+        lblSoloParaAdministradores = new javax.swing.JLabel();
+        lblQueAcciónQuieresHacer = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnMostrarImagenes = new javax.swing.JButton();
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -70,6 +75,7 @@ public class parqueoUMG extends javax.swing.JFrame {
 
         lblTipodeVehiculo.setText("Selecciona tu tipo de Vehiculo:");
 
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/coche-estacionado.png"))); // NOI18N
         btnIngresar.setText("INGRESAR A PARQUEO");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +83,7 @@ public class parqueoUMG extends javax.swing.JFrame {
             }
         });
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
         btnSalir.setText("SALIR DEL PARQUEO");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,71 +113,129 @@ public class parqueoUMG extends javax.swing.JFrame {
             }
         });
 
+        btnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
+        btnAdmin.setText("Administración");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
+
+        lblSoloParaAdministradores.setBackground(new java.awt.Color(255, 255, 0));
+        lblSoloParaAdministradores.setForeground(new java.awt.Color(255, 0, 0));
+        lblSoloParaAdministradores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/alerta.png"))); // NOI18N
+        lblSoloParaAdministradores.setText("Área solo para Administradores️");
+
+        lblQueAcciónQuieresHacer.setText("Que acción Quieres Realizar:");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LogoUMGpng 180x180.png"))); // NOI18N
+
+        btnMostrarImagenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ubicacion.png"))); // NOI18N
+        btnMostrarImagenes.setText("Ver mapa de parqueo");
+        btnMostrarImagenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarImagenesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_ingresarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(109, Short.MAX_VALUE))
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(btnCargarArchivo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(275, 275, 275)
+                        .addComponent(btnIngresar))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblSoloParaAdministradores))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTipodeVehiculo)
-                            .addComponent(cbxTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addComponent(lbl_ingresarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                                .addComponent(btnMostrarImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(btnSalir)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(134, 134, 134)
+                        .addComponent(lblQueAcciónQuieresHacer, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLimpiarBase)
                 .addGap(16, 16, 16))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(87, 87, 87)
+                                .addComponent(btnCargarArchivo))
+                            .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTipodeVehiculo)
+                            .addComponent(cbxTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addComponent(btnAdmin)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(lblTitulo)
+                        .addGap(17, 17, 17)
+                        .addComponent(lbl_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(lblTipodeVehiculo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(lblQueAcciónQuieresHacer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblTipodeVehiculo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
-                .addComponent(lbl_ingresarArchivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(lblSoloParaAdministradores)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_ingresarArchivo)
+                    .addComponent(btnMostrarImagenes))
+                .addGap(29, 29, 29)
                 .addComponent(txtCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(btnCargarArchivo)
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addComponent(btnAdmin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addComponent(btnCargarArchivo)
+                        .addGap(36, 36, 36)))
                 .addComponent(btnLimpiarBase)
-                .addGap(37, 37, 37))
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -184,10 +249,7 @@ public class parqueoUMG extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,7 +271,7 @@ public class parqueoUMG extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxTipoVehiculoActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-           // verifica que el campo no esté vacío
+           //extrae
     String placa = txt_placa.getText().trim();
     if (placa.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, escriba la placa del vehículo.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -219,14 +281,14 @@ public class parqueoUMG extends javax.swing.JFrame {
 
 
     try {
-        try ( // Se conecta a la base de datos por medio de la clase ConexionBD
+        try ( 
                 Connection conn = ConexionBD.conectar()) {
             if (conn == null) {
                 JOptionPane.showMessageDialog(this, "No se pudo conectar a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
-            // verifica que esxista la placa
+            // verifica que exista la placa
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM vehiculo WHERE placa = ?");
             ps.setString(1, placa);
             ResultSet rs = ps.executeQuery();
@@ -277,9 +339,7 @@ public class parqueoUMG extends javax.swing.JFrame {
                 }
             }
             
-                      
-
-            
+           
             
         }
 
@@ -321,7 +381,7 @@ public class parqueoUMG extends javax.swing.JFrame {
           
             
             
-// Valido si la placa existe en la base de datos
+// busca si la placa existe en la tabla vehiculo
          String sql = "SELECT * FROM vehiculo WHERE placa = ?";
          PreparedStatement ps = conn.prepareStatement(sql);
          ps.setString(1, placa);
@@ -337,96 +397,73 @@ public class parqueoUMG extends javax.swing.JFrame {
          
             
             
-         //Aquí debería ir el codigo de validación de tarifa variable 
+// Confirmar la salida del vehículo
 
-         
-          
-         
-         //  INICIO DE CÁLCULO DE TARIFA SEGÚN EL TIPO 
+int opcion = JOptionPane.showConfirmDialog(this,
+        "¿Desea registrar la salida del vehículo con placa " + placa + "?",
+        "Confirmar salida",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE);
 
-// Buscamos si la placa tiene un ticket activo (puede ser FLAT o VARIABLE)
-String sqlTicket = "SELECT * FROM ticket WHERE placa = ? AND estado = 'ACTIVO' ORDER BY ticket_id DESC LIMIT 1";
-PreparedStatement psTicket = conn.prepareStatement(sqlTicket);
-psTicket.setString(1, placa);
-ResultSet rsTicket = psTicket.executeQuery();
 
-if (rsTicket.next()) {
-    String modoPago = rsTicket.getString("modo_pago");
-    java.sql.Timestamp fechaIngreso = rsTicket.getTimestamp("fecha_ingreso");
-    java.sql.Timestamp fechaSalida = new java.sql.Timestamp(System.currentTimeMillis());
-
-    // Si el modo de pago es VARIABLE, calculamos cobro por hora
-    if (modoPago.equals("VARIABLE")) {
-
-        long minutos = java.time.Duration.between(fechaIngreso.toLocalDateTime(), fechaSalida.toLocalDateTime()).toMinutes();
-        double horas = Math.ceil(minutos / 60.0); // redondea hacia arriba
-        double tarifaHora = 5.0; // Q5 por hora (puedes ajustar)
-        double monto = horas * tarifaHora;
-
-        // Actualizamos el ticket en la BD
-        String sqlUpdate = "UPDATE ticket SET fecha_salida = ?, monto = ?, estado = 'PAGADO' WHERE placa = ? AND estado = 'ACTIVO'";
-        PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
-        psUpdate.setTimestamp(1, fechaSalida);
-        psUpdate.setDouble(2, monto);
-        psUpdate.setString(3, placa);
-        psUpdate.executeUpdate();
-
-        // Mostramos el ticket de salida con monto a pagar
-        String ticketSalida = "------ PARQUEO UMG ------\n"
-                + "Placa: " + placa + "\n"
-                + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
-                + "Hora de Salida: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + "\n"
-                + "Tiempo total: " + horas + " hora(s)\n"
-                + "Monto a pagar: Q" + monto + "\n"
-                + "--------------------------\n"
-                + "Gracias por su visita!\n";
-
-        JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
-
-    } 
+if (opcion == JOptionPane.YES_OPTION) {
     
-    // Si el modo de pago es FLAT, solo mostramos mensaje simple (ya está pagado)
-    else if (modoPago.equals("FLAT")) {
-        String ticketSalida = "------ PARQUEO UMG ------\n"
-                + "Placa: " + placa + "\n"
-                + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
-                + "Hora de Salida: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + "\n"
-                + "--------------------------\n"
-                + "TARIFA PLANA (Q10) - Ya pagada\n"
-                + "Gracias por su visita!\n";
+    
+    
+    
+    
+    // Registrar hora de salida (actual)
+    String sqlSalida = "UPDATE vehiculo SET horaSalida = NOW() WHERE placa = ?";
+    PreparedStatement psSalida = conn.prepareStatement(sqlSalida);
+    psSalida.setString(1, placa);
+    int filasActualizadas = psSalida.executeUpdate();
 
-        // Actualizamos la salida y marcamos como pagado también
-        String sqlUpdateFlat = "UPDATE ticket SET fecha_salida = ?, estado = 'PAGADO' WHERE placa = ? AND estado = 'ACTIVO'";
-        PreparedStatement psFlat = conn.prepareStatement(sqlUpdateFlat);
-        psFlat.setTimestamp(1, fechaSalida);
-        psFlat.setString(2, placa);
-        psFlat.executeUpdate();
+    if (filasActualizadas > 0) {
+        JOptionPane.showMessageDialog(this,
+                "✅ Salida registrada correctamente para la placa: " + placa,
+                "Salida registrada",
+                JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        
+        
+        
+        String horaSalida = java.time.LocalDateTime.now()
+        .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 
-        JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+String ticketSalida = "------ PARQUEO UMG ------\n"
+        + "Placa: " + placa + "\n"
+        + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+        + "Hora de Salida: " + horaSalida + "\n"
+        + "--------------------------\n"
+        + "¡GRACIAS POR SU VISITA!\n";
+
+JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+
+        
+        
+        
+        
+        
+        
+        
+        
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "⚠️ No se pudo registrar la salida. Verifique la placa.",
+                "Error en actualización",
+                JOptionPane.ERROR_MESSAGE);
     }
 } else {
-    JOptionPane.showMessageDialog(this, 
-        "No se encontró un ticket activo para esta placa.", 
-        "Sin ticket", 
-        JOptionPane.WARNING_MESSAGE);
+    JOptionPane.showMessageDialog(this,
+            "Operación cancelada.",
+            "Cancelado",
+            JOptionPane.INFORMATION_MESSAGE);
 }
 
-//  FIN DE CÁLCULO DE TARIFA SEGÚN EL TIPO 
-
-       
-            
-///
-            
-       
-
-
-
-
-/////////////////////
-
-
-
-            
+         
+         
+           
             
             
             JOptionPane.showMessageDialog(this,
@@ -457,8 +494,9 @@ if (rsTicket.next()) {
     }
 
     try {
-        // Archivo separado por '|', 
-        importarArchivo.importarCSV(ruta, '|');
+        // recibo ruta del archivo 
+       importarArchivo.importarCSV(ruta);
+
         javax.swing.JOptionPane.showMessageDialog(this, "Archivo importado correctamente a la base de datos.");
     } catch (Exception ex) {
         ex.printStackTrace();
@@ -496,6 +534,26 @@ int confirm = JOptionPane.showConfirmDialog(this,
         JOptionPane.showMessageDialog(this, "Error al limpiar la base: " + e.getMessage());
     }
     }//GEN-LAST:event_btnLimpiarBaseActionPerformed
+
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+       javax.swing.JFrame frame = new javax.swing.JFrame("Panel Administración");
+    frame.add(new PanelAdministracion());
+    frame.pack();
+    frame.setLocationRelativeTo(this);
+    frame.setVisible(true);
+    }//GEN-LAST:event_btnAdminActionPerformed
+
+    private void btnMostrarImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarImagenesActionPerformed
+   javax.swing.JFrame ventana = new javax.swing.JFrame("Galería de imagenes del Parqueo de la UMG");
+    ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+    PanelImagenes panel = new PanelImagenes();
+    ventana.add(panel);
+
+    ventana.pack();
+    ventana.setLocationRelativeTo(this);
+    ventana.setVisible(true);
+    }//GEN-LAST:event_btnMostrarImagenesActionPerformed
 /////////////////////////////////////////////////////////////////////////////////
  
     public static void main(String args[]) {
@@ -504,12 +562,17 @@ int confirm = JOptionPane.showConfirmDialog(this,
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnCargarArchivo;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnLimpiarBase;
+    private javax.swing.JButton btnMostrarImagenes;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxTipoVehiculo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblQueAcciónQuieresHacer;
+    private javax.swing.JLabel lblSoloParaAdministradores;
     private javax.swing.JLabel lblTipodeVehiculo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lbl_ingresarArchivo;

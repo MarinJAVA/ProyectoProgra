@@ -48,8 +48,8 @@ public class PanelAdministracion extends javax.swing.JPanel {
                 rs.getString("nombre"),
                 rs.getString("apellido"),
                 rs.getString("area"),
-                rs.getTimestamp("horaEntrada"),
-                rs.getTimestamp("horaSalida"),
+                rs.getString("horaEntrada"),
+                rs.getString("horaSalida"),
                 rs.getDouble("tarifa")
             });
         }
@@ -73,9 +73,9 @@ public class PanelAdministracion extends javax.swing.JPanel {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al calcular ganancias: " + e.getMessage());
         }
+      
+
     }
- 
- 
  
  
  
