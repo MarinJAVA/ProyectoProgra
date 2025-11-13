@@ -288,11 +288,68 @@ public class parqueoUMG extends javax.swing.JFrame {
                 return;
             }
             
+            
+            
+           // --------------------------------------------------------------------
+// bsc en ticket sql
+// --------------------------------------------------------------------
+String sqlTicket = "SELECT * FROM ticket WHERE placa = ?";
+PreparedStatement psTicket = conn.prepareStatement(sqlTicket);
+psTicket.setString(1, placa);
+ResultSet rsTicket = psTicket.executeQuery();
+
+if (rsTicket.next()) {
+
+    JOptionPane.showMessageDialog(this,
+            "La placa " + placa + " ya está registrada.",
+            "Vehículo encontrado (ticket)", JOptionPane.INFORMATION_MESSAGE);
+
+    String horaEntrada = java.time.LocalDateTime.now()
+            .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+    String ticket = "------ PARQUEO UMG ------\n"
+            + "Placa: " + placa + "\n"
+            + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+            + "Hora de Entrada: " + horaEntrada + "\n"
+            + "--------------------------\n"
+            + "BIENVENIDO!\n";
+
+    JOptionPane.showMessageDialog(this, ticket, "Ticket de entrada", JOptionPane.INFORMATION_MESSAGE);
+
+   
+
+
+// borrar hora de salida
+
+String sqlBorrarSalida = "UPDATE vehiculo SET horaSalida = NULL WHERE placa = ?";
+PreparedStatement psBorrar = conn.prepareStatement(sqlBorrarSalida);
+psBorrar.setString(1, placa);
+psBorrar.executeUpdate();
+
+        // borra salida en ticket
+String sqlBorrarSalidaTicket = "UPDATE ticket SET fecha_salida = NULL WHERE placa = ?";
+PreparedStatement psBorrarTicket = conn.prepareStatement(sqlBorrarSalidaTicket);
+psBorrarTicket.setString(1, placa);
+psBorrarTicket.executeUpdate();
+
+ 
+                    return; 
+} 
+
+            
             // verifica que exista la placa
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM vehiculo WHERE placa = ?");
             ps.setString(1, placa);
             ResultSet rs = ps.executeQuery();
             
+   
+            
+           
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////
+    
+    
             if (rs.next()) {
                 JOptionPane.showMessageDialog(this,
                         "La placa " + placa + " ya está registrada como " + rs.getString("Tipo_vehiculo") + ".",
@@ -378,7 +435,75 @@ public class parqueoUMG extends javax.swing.JFrame {
                 return;
             }
             
+            
+         //validdo si ya sali en tiket
+String sqlValTicket = "SELECT fecha_salida FROM ticket WHERE placa = ?";
+PreparedStatement psValTicket = conn.prepareStatement(sqlValTicket);
+psValTicket.setString(1, placa);
+ResultSet rsValTicket = psValTicket.executeQuery();
+
+if (rsValTicket.next()) {
+    String horaSalidaTicket = rsValTicket.getString("fecha_salida");
+
+    if (horaSalidaTicket != null && !horaSalidaTicket.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "❗ La placa " + placa + " ya ha salido del parqueo.",
+                "Salida ya registrada",
+                JOptionPane.WARNING_MESSAGE);
+        return; // Detiene el proceso
+    }
+}
+  
+            
+            
           
+            
+// Busco en ticketsql
+
+String sqlTicket = "SELECT * FROM ticket WHERE placa = ?";
+PreparedStatement psTicket = conn.prepareStatement(sqlTicket);
+psTicket.setString(1, placa);
+ResultSet rsTicket = psTicket.executeQuery();
+
+if (rsTicket.next()) {
+
+
+    int opcion = JOptionPane.showConfirmDialog(this,
+            "¿Desea registrar la salida del vehículo con placa " + placa + "?",
+            "Confirmar salida",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+    if (opcion == JOptionPane.YES_OPTION) {
+
+       
+        String sqlSalidaT = "UPDATE ticket SET fecha_salida = NOW() WHERE placa = ?";
+        PreparedStatement psSalidaT = conn.prepareStatement(sqlSalidaT);
+        psSalidaT.setString(1, placa);
+        psSalidaT.executeUpdate();
+
+        
+        String fecha_salida = java.time.LocalDateTime.now()
+                .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+        String ticketSalida = "------ PARQUEO UMG ------\n"
+                + "Placa: " + placa + "\n"
+                + "Tipo de vehículo: " + cbxTipoVehiculo.getSelectedItem() + "\n"
+                + "Hora de Salida: " + fecha_salida+ "\n"
+                + "--------------------------\n"
+                + "¡GRACIAS POR SU VISITA!\n";
+
+        JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    return; //no continua
+}
+
+            
+            
+            
+             
+            
             
             
 // busca si la placa existe en la tabla vehiculo
@@ -388,6 +513,8 @@ public class parqueoUMG extends javax.swing.JFrame {
          ResultSet rs = ps.executeQuery();
         
          if (!rs.next()) {
+             
+             
              JOptionPane.showMessageDialog(this,
                      "❌ La placa " + placa + " no existe en la base de datos.\nPlaca incorrecta.",
                      "Placa no encontrada",
@@ -395,7 +522,27 @@ public class parqueoUMG extends javax.swing.JFrame {
              return; // Detiene el proceso si la placa no existe
          }
          
-            
+            String horaSalidaBD = rs.getString("horaSalida");
+
+if (horaSalidaBD != null && !horaSalidaBD.isEmpty()) {
+    JOptionPane.showMessageDialog(this,
+            "❗ La placa " + placa + " ya ha salido del parqueo.",
+            "Salida ya registrada",
+            JOptionPane.WARNING_MESSAGE);
+    return; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
             
 // Confirmar la salida del vehículo
 
@@ -466,10 +613,7 @@ JOptionPane.showMessageDialog(this, ticketSalida, "Ticket de salida", JOptionPan
            
             
             
-            JOptionPane.showMessageDialog(this,
-                    "Operación realizada correctamente.",
-                    "Éxito",
-                    JOptionPane.INFORMATION_MESSAGE);
+           
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this,
